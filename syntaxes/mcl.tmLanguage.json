@@ -1,0 +1,117 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Micon Configuration Language",
+  "patterns": [
+    { "include": "#declaration" },
+    { "include": "#assign" },
+    { "include": "#comment" }
+  ],
+  "repository": {
+    "declaration": {
+      "patterns": [
+        {
+          "match": "(\\w+)\\s*=\\s*(\\w+)\\s*\\(\\s*(\\w+)\\s*,\\s*(\\w+)\\s*\\)\\s*<([\\s=\\w]+)>;",
+          "captures": {
+            "1": { "patterns": [{ "include": "#instance_name" }] },
+            "2": { "patterns": [{ "include": "#package" }] },
+            "3": { "patterns": [{ "include": "#hardware_module" }] },
+            "4": { "patterns": [{ "include": "#software_class" }] },
+            "5": { "patterns": [{ "include": "#param" }] }
+          }
+        },
+        {
+          "match": "(\\w+)\\s*=\\s*(\\w+)\\s*\\(\\s*(\\w+)\\s*,\\s*(\\w+)\\s*\\);",
+          "captures": {
+            "1": { "patterns": [{ "include": "#instance_name" }] },
+            "2": { "patterns": [{ "include": "#package" }] },
+            "3": { "patterns": [{ "include": "#hardware_module" }] },
+            "4": { "patterns": [{ "include": "#software_class" }] }
+          }
+        },
+        {
+          "match": "(\\w+)\\s*=\\s*(\\w+)\\s*\\(\\s*(\\w+)\\s*\\);",
+          "captures": {
+            "1": { "patterns": [{ "include": "#instance_name" }] },
+            "2": { "patterns": [{ "include": "#package" }] },
+            "3": { "patterns": [{ "include": "#hardware_module" }] }
+          }
+        }
+      ],
+      "repository": {
+        "instance_name": {
+          "patterns": [{ "name": "variable.other.mcl", "match": "\\w+" }]
+        },
+        "package": {
+          "patterns": [{ "name": "support.class.mcl", "match": "\\w+" }]
+        },
+        "hardware_module": {
+          "patterns": [{ "name": "support.class.mcl", "match": "\\w+" }]
+        },
+        "software_class": {
+          "patterns": [{ "name": "support.class.mcl", "match": "\\w+" }]
+        },
+        "param": {
+          "patterns": [
+            {
+              "match": "(\\w+)\\s*=\\s*(\\w+)",
+              "captures": {
+                "1": { "patterns": [{ "include": "#param_name" }] },
+                "2": { "patterns": [{ "include": "#constant_number" }] }
+              }
+            }
+          ],
+          "repository": {
+            "param_name": {
+              "patterns": [{ "name": "variable.other.mcl", "match": "(\\w+)" }]
+            },
+            "constant_number": {
+              "patterns": [
+                {
+                  "name": "constant.numeric.mcl",
+                  "match": "(-?[0-9]+)"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "assign": {
+      "patterns": [
+        {
+          "match": "(\\w+).(\\w+)\\s*([<=>\\(\\)0-9]+)\\s*(\\w+).(\\w+);",
+          "captures": {
+            "1": { "patterns": [{ "include": "#ident" }] },
+            "2": { "patterns": [{ "include": "#ident" }] },
+            "3": { "patterns": [{ "include": "#wire_type" }] },
+            "4": { "patterns": [{ "include": "#ident" }] },
+            "5": { "patterns": [{ "include": "#ident" }] }
+          }
+        }
+      ],
+      "repository": {
+        "ident": {
+          "patterns": [
+            {
+              "name": "variable.other.mcl",
+              "match": "[_0-9a-zA-Z]+"
+            }
+          ]
+        },
+        "wire_type": {
+          "patterns": [
+            {
+              "name": "keyword.operator.mcl",
+              "match": "\\b(<=>|<=|=>)\\b"
+            },
+            {
+              "name": "keyword.operator.mcl",
+              "match": "\\b(<=\\(|=\\()[0-9]+(\\)=>|\\)=)\\b"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "scopeName": "micon.mcl"
+}

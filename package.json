@@ -1,0 +1,25 @@
+{
+  "name": "micon-configuration-language",
+  "displayName": "Micon Configuration Language",
+  "description": "Syntax highlight of MCL for VSCode",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "mcl",
+      "aliases": ["Micon Configuration Language", "mcl"],
+      "extensions": [".mcl"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "mcl",
+      "scopeName": "micon.mcl",
+      "path": "./syntaxes/mcl.tmLanguage.json"
+    }]
+  }
+}

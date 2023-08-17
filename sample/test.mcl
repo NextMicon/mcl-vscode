@@ -1,0 +1,10 @@
+uart = uart(uart,serial)<baudrate = 9600>;
+uart.tx => fpga.pin_1;
+uart.rx <= fpga.pin_2;
+
+gpio = gpio(gpio,GPIO);
+gpio.io <=> fpga.user_led;
+
+cpu.irq_5 <= fpga.pin_11;
+
+hoge.foo <=(20)= fuga.bar;
