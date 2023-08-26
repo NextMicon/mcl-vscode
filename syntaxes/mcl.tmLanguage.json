@@ -4,6 +4,7 @@
   "patterns": [
     { "include": "#declaration" },
     { "include": "#assign" },
+    { "include": "#package" },
     { "include": "#comment" }
   ],
   "repository": {
@@ -107,6 +108,42 @@
             {
               "name": "keyword.operator.mcl",
               "match": "\\b(<=\\(|=\\()[0-9]+(\\)=>|\\)=)\\b"
+            }
+          ]
+        }
+      }
+    },
+    "package": {
+      "patterns": [
+        {
+          "match": "(\\w+)\\s*(:=)\\s*(\\S+);",
+          "captures": {
+            "1": { "patterns": [{ "include": "#ident" }] },
+            "2": { "patterns": [{ "include": "#assign" }] },
+            "3": { "patterns": [{ "include": "#url" }] }
+          }
+        }
+      ],
+      "repository": {
+        "ident": {
+          "patterns": [
+            {
+              "name": "variable.other.mcl",
+              "match": "[_0-9a-zA-Z]+"
+            }
+          ]
+        },
+        "assign": [
+          {
+            "name": "keyword.operator.mcl",
+            "match": "\\b(:=)\\b"
+          }
+        ],
+        "url": {
+          "patterns": [
+            {
+              "name": "string.quoted.mcl",
+              "match": "[\":/._0-9a-zA-Z]+"
             }
           ]
         }
